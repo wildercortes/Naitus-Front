@@ -1,9 +1,11 @@
 Este repositorio cuenta con la solucion al challenge planteado por Naitus el cual se divide en un front y una api. Este es el front realizado con angular
 
 Requisitos: 
-1 - node version 18.12.1(es la version que tenia instalada en mi maquina pero seguramente puede funcionar con otras versiones en ese caso la misma consola indicara si hace falta o o una version mas nueva)
+1 - Git.
 
-2 - visual studio Code
+2 - node version 18.12.1(es la version que tenia instalada en mi maquina pero seguramente puede funcionar con otras versiones en ese caso la misma consola indicara si hace falta o o una version mas nueva).
+
+3 - visual studio Code.
 
 Pasos:
 
