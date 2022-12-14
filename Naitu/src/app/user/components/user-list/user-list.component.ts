@@ -29,9 +29,12 @@ export class UserListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatTable) table!: MatTable<UserModel>;
-
+  coin: string;
   ngOnInit(): void {
     this.LoadTable();
+    this.service.GetUfValue().subscribe(res => {
+    this.coin = res.uf.valor; 
+    });
   }
 
   LoadTable() {
@@ -41,7 +44,6 @@ export class UserListComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.table.dataSource = this.dataSource;
     })
-
   }
 
   ShowCreateDialog() {
@@ -53,7 +55,6 @@ export class UserListComponent implements OnInit {
       }
     });
   }
-
 
   ShowEditDialog(value: UserModel) {
     const dialogRef = this.dialog.open(UsereditComponent, { width: '280px', data: value.id });
@@ -76,6 +77,4 @@ export class UserListComponent implements OnInit {
     });
 
   }
-
-
 }

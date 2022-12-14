@@ -11,7 +11,6 @@ import { UserService } from 'src/app/core/service/user.service';
   styleUrls: ['./useredit.component.css']
 })
 export class UsereditComponent implements OnInit {
-
   constructor(@Inject(MAT_DIALOG_DATA) public Id: string,
   public dialogRef: MatDialogRef<UsereditComponent>,
   public service: UserService

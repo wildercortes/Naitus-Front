@@ -20,8 +20,6 @@ export class UsercreateComponent implements OnInit {
   }
 
   Crear(value: UserModel) {
-    console.log("esto envio");
-    console.log(value);
     this.service.add(value).subscribe(x => this.dialogRef.close(),
     error => console.log("algo salio mal"));
   }

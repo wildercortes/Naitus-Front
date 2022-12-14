@@ -11,6 +11,10 @@ export class UserService {
   constructor(
     private httpClient: HttpClient) {}
 
+    GetUfValue() {
+      return this.httpClient.get<any>(`https://mindicador.cl/api`);
+      }
+
     getAll() {
       return this.httpClient.get<any>(`https://localhost:7088/api/User/GetAll`);
       }
@@ -41,16 +45,6 @@ export class UserService {
           }
         );
       }
-       
-      /* form: FormGroup = new FormGroup({
-        name: new FormControl('',   [Validators.required, Validators.minLength(3)]),
-        lastname: new FormControl('',   [Validators.required, Validators.minLength(3)]),
-        email: new FormControl('',   [Validators.required, Validators.email]),
-        password: new FormControl('',   [Validators.required, Validators.minLength(3)]),
-        rut: new FormControl('',   [Validators.required]),
-        birthdate: new FormControl('',   [Validators.required]),
-      }); */
-
       form: FormGroup = new FormGroup({
         name: new FormControl(''),
         lastname: new FormControl(''),
