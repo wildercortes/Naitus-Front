@@ -1,33 +1,73 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTable } from '@angular/material/table';
-import { UserListDataSource, UserListItem } from './user-list-datasource';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { UserModel } from 'src/app/core/models/user.model';
+import { UserService } from 'src/app/core/service/user.service';
+
 
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
-export class UserListComponent implements AfterViewInit {
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatTable) table!: MatTable<UserListItem>;
-  dataSource: UserListDataSource;
+export class UserListComponent implements OnInit {
 
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  constructor(
+    private service: UserService,
+    public dialog: MatDialog,
+    public snackBar: MatSnackBar
+  ) { }
 
-  constructor() {
-    this.dataSource = new UserListDataSource();
+  dataSource: MatTableDataSource<UserModel>;
+  displayedColumns: string[] = ['id', 'rut', 'name', 'lastname', 'email','password','birthdate'];
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatTable) table!: MatTable<UserModel>;
+  searchKey = '';
+
+
+  ngOnInit(): void {
+    this.LoadTable();
   }
 
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    this.table.dataSource = this.dataSource;
+  onSearchClear() {
+    this.searchKey = "";
+    this.applyFilter();
   }
+
+  applyFilter() {
+    
+  }
+
+
+  LoadTable() {
+
+    this.service.getAll().subscribe(res => {
+      this.dataSource = new MatTableDataSource(res);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      this.table.dataSource = this.dataSource;
+      console.log("respondio");
+      console.log(this.dataSource.data);
+    })
+
+  }
+
+  ShowCreateDialog() {
+    
+  }
+
+
+  ShowEditDialog(value: UserModel) {
+    
+  }
+
+  ShowDeleteDialog(value: UserModel) {
+    
+  }
+
+
 }
