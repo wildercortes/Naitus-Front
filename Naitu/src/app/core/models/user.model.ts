@@ -1,10 +1,10 @@
 export interface UserModel {
-    id: number;
+    id: string;
     rut: number;
     name: string;
-    lastname: string;
+    lastName: string;
     email: string;
     password: string;
-    birthdate: string;
+    birthDate: string;
   }
   

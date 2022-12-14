@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserModel } from '../models/user.model';
 
 @Injectable({
@@ -14,15 +15,59 @@ export class UserService {
       return this.httpClient.get<any>(`https://localhost:7088/api/User/GetAll`);
       }
 
-      getAll2() {
-        let pp: UserModel[] = [
-          { id: 1,
-             rut: 123,
-              name: "wilder",
-               lastname: "cortes", email: "wcortes@gmail.com", password: "123", birthdate: "" }
-          
-      ];
-      return pp;
+      getById(id: string) {
+        let params = new HttpParams();
+        params = params.set('Id', id);
+        return this.httpClient.get<any>(`https://localhost:7088/api/User/GetbyId`,  {
+            params: params
+          });
+      }
+    
+      add(data: UserModel) {
+        return this.httpClient
+          .post(`https://localhost:7088/api/User`, data);
+      }
+    
+      update(data: UserModel) {
+        return this.httpClient.put(`https://localhost:7088/api/User`, data);
+      }
+    
+      delete(id: string) {
+        return this.httpClient.request(
+          'DELETE',
+          `https://localhost:7088/api/User`,
+          {
+            body: { id }
+          }
+        );
+      }
        
-        }
+      /* form: FormGroup = new FormGroup({
+        name: new FormControl('',   [Validators.required, Validators.minLength(3)]),
+        lastname: new FormControl('',   [Validators.required, Validators.minLength(3)]),
+        email: new FormControl('',   [Validators.required, Validators.email]),
+        password: new FormControl('',   [Validators.required, Validators.minLength(3)]),
+        rut: new FormControl('',   [Validators.required]),
+        birthdate: new FormControl('',   [Validators.required]),
+      }); */
+
+      form: FormGroup = new FormGroup({
+        name: new FormControl(''),
+        lastname: new FormControl(''),
+        email: new FormControl(''),
+        password: new FormControl(''),
+        rut: new FormControl(''),
+        birthdate: new FormControl(new Date())
+      });
+    
+      initializeFormGroup() {
+        this.form.setValue({
+          name: '',   
+          lastname: '',  
+          email: '',   
+          password: '',  
+          rut: '',   
+          birthdate: '',   
+        });
+      }
 }
